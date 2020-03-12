@@ -30,15 +30,16 @@ public class MaxHeapTest {
             heapLogN[i].MaxHeapLogN(testHeapLogN[i]);
             heapN[i].MaxHeapN(testHeapN[i]);
 
+            System.out.println("Heap logN");
             System.out.println();
             for(int count = 0; count < heapLogN[i].size; count++) {
-                System.out.println("Heap logN");
-                System.out.println(heapLogN[i].data[count]);
+                System.out.print(heapLogN[i].data[count] + " ");
             }
 
+            System.out.println();
+            System.out.println("Heap N");
             for(int count = 0; count < heapLogN[i].size; count++) {
-                System.out.println("Heap N");
-                System.out.println(heapN[i].data[count]);
+                System.out.print(heapN[i].data[count] + " ");
             }
 
             assert(heapLogN[i].equals(heapN[i]));

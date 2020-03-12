@@ -42,11 +42,11 @@ public class MaxHeap implements Heap {
     // build a heap based on data
     // to be implemented in O(nlogn)
     public void MaxHeapLogN(Integer[] data) {
-        // Idea is that it adds, haven't added adding yet
-        for(Integer input: this.data)
-            add(input);
+        // Need a deep copy of the array, this MaxHeap object now holds the array and we manipulate our own data
+        //System.arraycopy(data, 0, this.data, 0, data.length);
 
-        //size = this.data.length;
+        for(Integer input: data)
+            add(input);
     }
 
     // build a heap based on data
@@ -58,13 +58,26 @@ public class MaxHeap implements Heap {
         for(int i = 0; i < data.length; i++) {
             arrayHeapSort(this.data[this.data.length - 1 - i]);
         }
-        size = this.data.length;
     }
 
     // add an item to the heap
     public boolean add(Integer item) {
+        if(size == data.length) return false;
+        if(size == 0) {
+            data[size] = item;
+            size++;
+            return true;
+        }
 
-        return false;
+        data[size] = item;
+        int count = size;
+
+        while (data[count] > data[(count / 2)]) {
+            swap(count, (count / 2));
+            count /= 2;
+        }
+        size++;
+        return true;
     }
 
     // return the max item in the heap
@@ -83,13 +96,6 @@ public class MaxHeap implements Heap {
     public boolean equals(MaxHeap other) {
         // Null pointer exceptions, just in case
         if(other.data.length != data.length) return false;
-
-        //System.out.println();
-//        for(int count = 0; count < other.data.length; count++) {
-//            //System.out.println(count);
-//            System.out.println(other.data[count]);
-//            System.out.println(data[count]);
-//        }
 
         for(int i = 0; i < data.length; i++) {
             if (!data[i].equals(other.data[i])) return false;
