@@ -1,4 +1,5 @@
 import javax.management.openmbean.OpenMBeanInfoSupport;
+import java.util.Arrays;
 
 public class MaxHeap implements Heap {
     int size;
@@ -52,11 +53,6 @@ public class MaxHeap implements Heap {
         for(int i = data.length / 2; i >= 0; i--) {
             arrayHeapSort(i);
         }
-//        //if(data.length != size) {
-//            for(Integer output: data)
-//                System.out.print(output + " ");
-//        //}
-//        System.out.println();
     }
 
     // add an item to the heap
@@ -88,17 +84,37 @@ public class MaxHeap implements Heap {
 
     // remove the root item
     public Integer pop() {
-        // homework
-        return null;
+        if(size == 0) return null;
+        Integer output = data[0];
+        size--;
+        data[0] = data[size];
+        // Now that the first value has been removed, we need to move everything
+        for(int i = data.length / 2; i >= 0; i--) {
+            arrayHeapSort(i);
+        }
+        data[size] = null;
+
+
+        return output;
     }
 
-    // Built the recommended equals function
+    // Built the recommended equals function. Initally it checked if the elements were the same but two valid heaps can have a
+    // different arrangement of elements
     public boolean equals(MaxHeap other) {
         // Null pointer exceptions, just in case
-        if(other.data.length != data.length) return false;
+        if(other.size != this.size) return false;
 
-        for(int i = 0; i < data.length; i++) {
-            if (!data[i].equals(other.data[i])) return false;
+        Integer[] otherData = new Integer[other.data.length];
+        Integer[] ourData = new Integer[this.data.length];
+        // Wanted to not change initial arrays but I also want manipulated arrays to check
+        System.arraycopy(other.data, 0, otherData, 0, other.size);
+        System.arraycopy(data, 0, ourData, 0, size);
+
+        Arrays.sort(otherData);
+        Arrays.sort(ourData);
+
+        for(int i = 0; i < size; i++) {
+            if (!otherData[i].equals(ourData[i])) return false;
         }
         return true;
     }
