@@ -11,24 +11,20 @@ public class MaxHeap implements Heap {
     }
 
     // helper method that adds elements to a heap for O(n)
+    // AKA HeapifyDown. I used the slide's psudocode to build this function
     private void arrayHeapSort(int index) {
+        int largest = index;
         // Have the children of the index
         int leftChild = (index * 2) + 1;
         int rightChild = (index * 2) + 2;
 
-        // Recursively checks the child nodes to see if
-        if(leftChild < data.length) {
-            System.out.println(index + " <index leftChild> " + leftChild);
-            //System.out.println(data.length);
-            if (data[leftChild] > data[index]) {
-                swap(leftChild, index);
-                arrayHeapSort(leftChild);
-            }
-
-            if (rightChild < data.length && data[rightChild] > data[index]) {
-                swap(rightChild, index);
-                arrayHeapSort(rightChild); // Some duplicate code
-            }
+        if (leftChild < index && data[leftChild] > data[largest])
+            largest = leftChild;
+        if (rightChild < index && data[rightChild] > data[largest])
+            largest = rightChild;
+        if (largest != index) {
+            swap(largest, index);
+            arrayHeapSort(largest);
         }
     }
 
@@ -55,8 +51,10 @@ public class MaxHeap implements Heap {
         // Need a deep copy of the array, this MaxHeap object now holds the array and we manipulate our own data
         System.arraycopy(data, 0, this.data, 0, data.length);
 
-        for(int i = 0; i < data.length; i++) {
-            arrayHeapSort(this.data[this.data.length - 1 - i]);
+        int startIndex = (data.length / 2) - 1;
+
+        for(int i = startIndex; i >= 0; i--) {
+            arrayHeapSort(i);
         }
     }
 
@@ -101,7 +99,6 @@ public class MaxHeap implements Heap {
             if (!data[i].equals(other.data[i])) return false;
             System.out.println(i);
         }
-
         return true;
     }
 }

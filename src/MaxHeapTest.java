@@ -31,7 +31,6 @@ public class MaxHeapTest {
             heapN[i].MaxHeapN(testHeapN[i]);
 
             System.out.println("Heap logN");
-            System.out.println();
             for(int count = 0; count < heapLogN[i].size; count++) {
                 System.out.print(heapLogN[i].data[count] + " ");
             }
