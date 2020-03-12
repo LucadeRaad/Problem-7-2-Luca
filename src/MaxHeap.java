@@ -11,40 +11,34 @@ public class MaxHeap implements Heap {
     }
 
     // helper method that adds elements to a heap for O(n)
-    // AKA HeapifyDown. I used the slide's psudocode to build this function
+    // AKA HeapifyDown. I used slide's 40 psudocode to build this function
     private void arrayHeapSort(int index) {
-        int smallest = index;
+        int largest = index;
         // Have the children of the index
-        int leftChild = (index * 2) + 1;
-        int rightChild = (index * 2) + 2;
+        int leftChildChild = (index * 2) + 1;
+        int rightChildChild = (index * 2) + 2;
 
-        if (leftChild < data.length && data[leftChild] < data[smallest])
-            smallest = leftChild;
-        if (rightChild < data.length && data[rightChild] < data[smallest])
-            smallest = rightChild;
-        if (smallest != index) {
-            swap(smallest, index);
-            arrayHeapSort(smallest);
-        } else {
-            System.out.println(data[smallest] + " is smaller than");
-            if(leftChild < data.length) System.out.println(data[leftChild]);
-            if(rightChild < data.length) System.out.println(data[rightChild]);
+        if (leftChildChild < size && data[leftChildChild] > data[largest])
+            largest = leftChildChild;
+        if (rightChildChild < size && data[rightChildChild] > data[largest])
+            largest = rightChildChild;
+        if (largest != index) {
+            swap(index, largest);
+            arrayHeapSort(largest);
         }
     }
 
-    // Swaps elements in an array
-    private void swap(int numOne, int numTwo) {
-        int temp = data[numOne];
-        data[numOne] = data[numTwo];
-        data[numTwo] = temp;
+    private void swap(int firstIndex, int secondIndex) {
+        int temp = data[firstIndex];
+        data[firstIndex] = data[secondIndex];
+        data[secondIndex] = temp;
     }
+
 
     // build a heap based on data
     // to be implemented in O(nlogn)
     public void MaxHeapLogN(Integer[] data) {
-        // Need a deep copy of the array, this MaxHeap object now holds the array and we manipulate our own data
-        //System.arraycopy(data, 0, this.data, 0, data.length);
-
+        // Adding each individual piece of data is nlogn
         for(Integer input: data)
             add(input);
     }
@@ -54,14 +48,20 @@ public class MaxHeap implements Heap {
     public void MaxHeapN(Integer[] data) {
         // Need a deep copy of the array, this MaxHeap object now holds the array and we manipulate our own data
         System.arraycopy(data, 0, this.data, 0, data.length);
-
-        for(int i = 0; i < data.length; i++) {
+        size = data.length;
+        for(int i = data.length / 2; i >= 0; i--) {
             arrayHeapSort(i);
         }
+//        //if(data.length != size) {
+//            for(Integer output: data)
+//                System.out.print(output + " ");
+//        //}
+//        System.out.println();
     }
 
     // add an item to the heap
     public boolean add(Integer item) {
+        // Checks to see if the heap is at max length or at size 0
         if(size == data.length) return false;
         if(size == 0) {
             data[size] = item;
@@ -99,7 +99,6 @@ public class MaxHeap implements Heap {
 
         for(int i = 0; i < data.length; i++) {
             if (!data[i].equals(other.data[i])) return false;
-            System.out.println(i);
         }
         return true;
     }
