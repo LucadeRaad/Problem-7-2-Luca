@@ -79,8 +79,7 @@ public class MaxHeap implements Heap {
 
     // return the max item in the heap
     public Integer get() {
-        // homework
-        return null;
+        return size == 0 ? null : data[0];
     }
 
     // remove the root item
