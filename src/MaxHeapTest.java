@@ -81,12 +81,6 @@ public class MaxHeapTest {
             heapPop[i].MaxHeapN(testData[i]);
             Integer popValue = heapPop[i].pop();
 
-            System.out.println(popValue + " <- popvalue should be -> " + output[i]);
-            for (int count = 0; count < heapPop[i].data.length; count++) {
-                System.out.print(heapPop[i].data[count] + " ");
-            }
-            System.out.println();
-
             // One tests if the right value has been found, the other other tests if the heap correctly has shifted
             assert(popValue.equals(output[i]));
             assert(Arrays.equals(heapPop[i].data, expected[i]));

@@ -1,4 +1,3 @@
-import javax.management.openmbean.OpenMBeanInfoSupport;
 import java.util.Arrays;
 
 public class MaxHeap implements Heap {
@@ -42,11 +41,13 @@ public class MaxHeap implements Heap {
         // Adding each individual piece of data is nlogn
         for(Integer input: data)
             add(input);
+        size = data.length;
     }
 
     // build a heap based on data
     // to be implemented in O(n)
     public void MaxHeapN(Integer[] data) {
+        if(data.length == 0) return;
         // Need a deep copy of the array, this MaxHeap object now holds the array and we manipulate our own data
         System.arraycopy(data, 0, this.data, 0, data.length);
         size = data.length;
@@ -102,7 +103,7 @@ public class MaxHeap implements Heap {
     // different arrangement of elements
     public boolean equals(MaxHeap other) {
         // Null pointer exceptions, just in case
-        if(other.size != this.size) return false;
+        if(other.data.length != this.data.length) return false;
 
         Integer[] otherData = new Integer[other.data.length];
         Integer[] ourData = new Integer[this.data.length];
