@@ -50,6 +50,30 @@ public class MaxHeapTest {
     }
 
     @Test
+    public void getTest() {
+        Integer[][] testData = {
+                {9},
+                {12, 4},
+                {6, 5, 3},
+                {11, 10, 9, 8, 6},
+                {30, 21, 19, 1, 7, 9},
+                {34, 27, 8, 15, 18, 6, 4, 14, 7},
+                {100, 67, 17, 9, 12, 1, 13}
+        };
+
+        // Need to return max value of the maxheap
+        Integer[] expected = {9, 12, 6, 11, 30, 34, 100};
+        MaxHeap[] heapGet = new MaxHeap[testData.length];
+
+        for(int i = 0; i < testData.length; i++) {
+            heapGet[i] = new MaxHeap(testData[i].length);
+            heapGet[i].MaxHeapN(testData[i]);
+            Integer actual = heapGet[i].get();
+            assert(actual.equals(expected[i]));
+        }
+    }
+
+    @Test
     public void popTest() {
         // Going to assume for popping that the heap is already created. AKA the array is heapified
         Integer[][] testData = {
