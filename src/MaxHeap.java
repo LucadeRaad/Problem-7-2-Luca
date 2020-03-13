@@ -107,8 +107,8 @@ public class MaxHeap implements Heap {
         Integer[] otherData = new Integer[other.data.length];
         Integer[] ourData = new Integer[this.data.length];
         // Wanted to not change initial arrays but I also want manipulated arrays to check
-        System.arraycopy(other.data, 0, otherData, 0, other.size);
-        System.arraycopy(data, 0, ourData, 0, size);
+        System.arraycopy(other.data, 0, otherData, 0, other.data.length);
+        System.arraycopy(data, 0, ourData, 0, this.data.length);
 
         Arrays.sort(otherData);
         Arrays.sort(ourData);

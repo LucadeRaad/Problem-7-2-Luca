@@ -51,6 +51,7 @@ public class MaxHeapTest {
 
     @Test
     public void getTest() {
+        // This test assumes a sorted arraylist. Only need to get the max
         Integer[][] testData = {
                 {9},
                 {12, 4},
@@ -70,6 +71,44 @@ public class MaxHeapTest {
             heapGet[i].MaxHeapN(testData[i]);
             Integer actual = heapGet[i].get();
             assert(actual.equals(expected[i]));
+        }
+    }
+
+    @Test
+    public void addTest() {
+        // Testing what happens when one value is added to a heap. Other tests prove that adding many values to a heap works too
+        Integer[][] testData = {
+                {},
+                {12, 4},
+                {6, 5, 3},
+                {11, 10, 9, 8, 6},
+                {30, 21, 19, 1, 7, 9},
+                {34, 27, 8, 15, 18, 6, 4, 14, 7},
+                {100, 67, 17, 9, 12, 1, 13}
+        };
+
+        Integer[][] actualData = {
+                {9},
+                {12, 5, 4},
+                {6, 5, 3, 4},
+                {11, 10, 9, 8, 6, 3},
+                {30, 21, 19, 20, 7, 9, 1},
+                {34, 27, 8, 15, 18, 6, 4, 14, 7, 9},
+                {100, 67, 17, 49, 12, 1, 13, 9}
+        };
+
+        Integer[] additions = {9, 5, 4, 3, 20, 9, 49};
+        MaxHeap[] heapAdd = new MaxHeap[testData.length];
+        MaxHeap[] actual = new MaxHeap[testData.length];
+
+        for(int i = 0; i < testData.length; i++) {
+            heapAdd[i] = new MaxHeap(testData[i].length + 1);
+            actual[i] = new MaxHeap(actualData[i].length);
+            heapAdd[i].MaxHeapN(testData[i]);
+            heapAdd[i].add(additions[i]);
+            actual[i].MaxHeapN(actualData[i]);
+
+            assert(heapAdd[i].equals(actual[i]));
         }
     }
 
