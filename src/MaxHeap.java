@@ -94,7 +94,6 @@ public class MaxHeap implements Heap {
         }
         data[size] = null;
 
-
         return output;
     }
 
@@ -102,13 +101,13 @@ public class MaxHeap implements Heap {
     // different arrangement of elements
     public boolean equals(MaxHeap other) {
         // Null pointer exceptions, just in case
-        if(other.data.length != this.data.length) return false;
+        if(other.size != this.size) return false;
 
-        Integer[] otherData = new Integer[other.data.length];
-        Integer[] ourData = new Integer[this.data.length];
+        Integer[] otherData = new Integer[other.size];
+        Integer[] ourData = new Integer[this.size];
         // Wanted to not change initial arrays but I also want manipulated arrays to check
-        System.arraycopy(other.data, 0, otherData, 0, other.data.length);
-        System.arraycopy(data, 0, ourData, 0, this.data.length);
+        System.arraycopy(other.data, 0, otherData, 0, other.size);
+        System.arraycopy(data, 0, ourData, 0, this.size);
 
         Arrays.sort(otherData);
         Arrays.sort(ourData);

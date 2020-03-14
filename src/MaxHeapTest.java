@@ -127,26 +127,32 @@ public class MaxHeapTest {
 
         // Testing to see if it removes the topmost value and to see if the heap is correctly formatted afterwards
         Integer[] output = {9, 12, 6, 11, 30, 34, 100};
-        Integer[][] expected = {
-                {null},
-                {4, null},
-                {5, 3, null},
-                {10, 8, 9, 6, null},
-                {21, 9, 19, 1, 7, null},
-                {27, 18, 8, 15, 7, 6, 4, 14, null},
-                {67, 13, 17, 9, 12, 1, null}
+        Integer[][] expectedArray = {
+                {},
+                {4},
+                {5, 3},
+                {10, 8, 9, 6},
+                {21, 9, 19, 1, 7},
+                {27, 18, 8, 15, 7, 6, 4, 14},
+                {67, 13, 17, 9, 12, 1}
         };
 
         MaxHeap[] heapPop = new MaxHeap[testData.length];
+        MaxHeap[] expected = new MaxHeap[expectedArray.length];
 
         for(int i = 0; i < testData.length; i++) {
+            // Initializing both heaps so that we can use the compare function for both. If we use the array compare of the heap
+            // and unmodified array we need to add a null to the end
             heapPop[i] = new MaxHeap(testData[i].length);
+            expected[i] = new MaxHeap(expectedArray[i].length);
             heapPop[i].MaxHeapN(testData[i]);
+            expected[i].MaxHeapN(expectedArray[i]);
+
             Integer popValue = heapPop[i].pop();
 
             // One tests if the right value has been found, the other other tests if the heap correctly has shifted
             assert(popValue.equals(output[i]));
-            assert(Arrays.equals(heapPop[i].data, expected[i]));
+            assert(heapPop[i].equals(expected[i]));
         }
     }
 }
