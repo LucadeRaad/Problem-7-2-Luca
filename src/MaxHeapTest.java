@@ -20,13 +20,12 @@ public class MaxHeapTest {
         MaxHeap[] heapLogN = new MaxHeap[testData.length];
         MaxHeap[] heapN = new MaxHeap[testData.length];
 
-        // Heaps in this case are expressed with arrays
+        // The reason this test case is conjoined and weird is that initially it was also my performance test
         for (int i = 0; i < testData.length; i++) {
-            // There are now two arrays of the same input
+            // The two arrays are identical
             heapLogN[i] = new MaxHeap(testData[i].length);
             heapN[i] = new MaxHeap(testData[i].length);
 
-            // Creating the two arrays of heaps that should be identical
             heapLogN[i].MaxHeapLogN(testData[i]);
             heapN[i].MaxHeapN(testData[i]);
 
@@ -45,6 +44,9 @@ public class MaxHeapTest {
                 }
             }
 
+            // Testing the heaps in a multitude of ways to make sure that data is not deleted
+            assert(heapLogN[i].isValidHeap());
+            assert(heapN[i].isValidHeap());
             assert(heapLogN[i].equals(heapN[i]));
         }
     }
@@ -108,6 +110,7 @@ public class MaxHeapTest {
             heapAdd[i].add(additions[i]);
             actual[i].MaxHeapN(actualData[i]);
 
+            assert(heapAdd[i].isValidHeap()); // An extra test never hurts
             assert(heapAdd[i].equals(actual[i]));
         }
     }
@@ -116,6 +119,7 @@ public class MaxHeapTest {
     public void popTest() {
         // Going to assume for popping that the heap is already created. AKA the array is heapified
         Integer[][] testData = {
+                {},
                 {9},
                 {12, 4},
                 {6, 5, 3},
@@ -126,8 +130,9 @@ public class MaxHeapTest {
         };
 
         // Testing to see if it removes the topmost value and to see if the heap is correctly formatted afterwards
-        Integer[] output = {9, 12, 6, 11, 30, 34, 100};
+        Integer[] output = {null, 9, 12, 6, 11, 30, 34, 100};
         Integer[][] expectedArray = {
+                {},
                 {},
                 {4},
                 {5, 3},
@@ -150,9 +155,10 @@ public class MaxHeapTest {
 
             Integer popValue = heapPop[i].pop();
 
-            // One tests if the right value has been found, the other other tests if the heap correctly has shifted
-            assert(popValue.equals(output[i]));
+            // One tests if the right value has been found, the other two tests if the heap correctly has shifted
+            assert(popValue == output[i]); // Have to use == for null
             assert(heapPop[i].equals(expected[i]));
+            assert(heapPop[i].isValidHeap());
         }
     }
 }

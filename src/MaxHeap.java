@@ -2,7 +2,6 @@ import java.util.Arrays;
 
 public class MaxHeap implements Heap {
     int size;
-
     Integer[] data;
 
     public MaxHeap(int capacity) {
@@ -34,7 +33,6 @@ public class MaxHeap implements Heap {
         data[secondIndex] = temp;
     }
 
-
     // build a heap based on data
     // to be implemented in O(nlogn)
     public void MaxHeapLogN(Integer[] data) {
@@ -65,10 +63,8 @@ public class MaxHeap implements Heap {
             size++;
             return true;
         }
-
         data[size] = item;
         int count = size;
-
         while (data[count] > data[(count / 2)]) {
             swap(count, (count / 2));
             count /= 2;
@@ -114,6 +110,14 @@ public class MaxHeap implements Heap {
 
         for(int i = 0; i < size; i++) {
             if (!otherData[i].equals(ourData[i])) return false;
+        }
+        return true;
+    }
+
+    // I wanted to create a method that would check if something was a valid heap
+    public boolean isValidHeap() {
+        for(int count = 0; (count * 2) + 1 < size; count++) {
+            if(data[count] < data[(count * 2) + 1]) return false;
         }
         return true;
     }
